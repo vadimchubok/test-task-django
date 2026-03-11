@@ -1,17 +1,39 @@
-Test task django 
----------------------
+# Booking API
 
-[git](https://gitlab.com/alexsukhykh/test_task_django)
+Простий Django API для бронювання столиків.
 
+### Методи
 
-## Залежності:
+**GET /**  
+Повертає всі столики.
 
-- Python 3.9+
-- PostgresQL 14
------------
+**GET /?date=DD.MM.YYYYT HH:MM**  
+Повертає доступні столики для заданого часу (заняті відкидаються, якщо бронювання є в ±2 години).
 
-## Сурперкористувач:
+**POST /**  
+Створює нове бронювання. Тіло запиту (JSON):
 
-login: Admin
-psw: 123
------------
+```json
+{
+  "client_name": "Alex",
+  "client_phone": "0931234567",
+  "table": 2,
+  "date": "29.06.2025T20:00"
+}
+```
+### Приклади запитів
+
+Отримати всі столики:
+```bash
+curl -s http://127.0.0.1:8000/
+```
+Перевірити доступність столиків на дату:
+```bash
+curl -s "http://127.0.0.1:8000/?date=01.07.2025T20:00"
+```
+Створити бронювання:
+```bash
+curl -s -X POST http://127.0.0.1:8000/ \
+  -H "Content-Type: application/json" \
+  -d '{"client_name":"Alex","client_phone":"0931234567","table":2,"date":"29.06.2025T20:00"}'
+```

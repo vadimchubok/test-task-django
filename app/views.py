@@ -18,7 +18,6 @@ class BookingView(View):
     POST: Create new booking
     """
 
-
     def get(self, request):
         date_param = request.GET.get("date")
         tables = Table.objects.all()
